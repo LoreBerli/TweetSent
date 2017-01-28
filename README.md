@@ -11,12 +11,9 @@ To use the java version you need to edit the config.properties file inside  *src
 
 ---
 <code>
-
 pathToClassifier= #path to a serialized LMClassifier
 
-
 inputPath= #input files path
-
 
 outputPath= #output files path
 </code>
