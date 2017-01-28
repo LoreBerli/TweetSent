@@ -3,17 +3,27 @@ import com.aliasi.classify.LMClassifier;
 import com.aliasi.util.AbstractExternalizable;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Properties;
 
 /**
  * Created by cioni on 22/01/17.
  */
 
 public class SentimentClassifier {
+
     LMClassifier clss;
     public SentimentClassifier() {
+        Properties prop = new Properties();
         try {
-            clss= (LMClassifier)AbstractExternalizable.readObject(new File("classifier1.txt"));
+            prop.load(new FileInputStream("src/main/resources/config.properties"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            clss= (LMClassifier)AbstractExternalizable.readObject(new File(prop.getProperty("pathToClassifier")));
         }
         catch (ClassNotFoundException e) {
             e.printStackTrace();

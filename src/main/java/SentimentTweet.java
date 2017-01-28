@@ -8,14 +8,35 @@ import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
+
 
 public class SentimentTweet {
     public static void main(String[] args) throws Exception{
+        Properties prop = new Properties();
+        try {
+
+            prop.load(new FileInputStream("src/main/resources/config.properties"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         Job job = new Job();
         job.setJarByClass(SentimentTweet.class);
         job.setJobName("Tweet");
-        FileInputFormat.addInputPath(job,new Path(args[0]));
-        FileOutputFormat.setOutputPath(job,new Path(args[1]));
+
+        if(args.length == 0)
+        {
+            FileInputFormat.addInputPath(job,new Path(prop.getProperty("inputPath").toString()));
+            FileOutputFormat.setOutputPath(job,new Path(prop.getProperty("outputPath").toString()));
+        }
+        else{
+            FileInputFormat.addInputPath(job,new Path(args[0]));
+            FileOutputFormat.setOutputPath(job,new Path(args[1]));
+        }
+
         job.setMapperClass(TweetMapper.class);
         job.setReducerClass(TweetReducer.class);
 
