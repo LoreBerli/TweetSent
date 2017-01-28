@@ -17,6 +17,7 @@ inputPath= #input files path
 
 outputPath= #output files path
 </code>
+
 ---
 Then:
 <code>
@@ -36,7 +37,7 @@ These arguments ovveride the config file.
 
 ## Python Version
 Python version requires Hadoop.
-To launch it edit *launch.sh* first:
+To launch it edit *launchMe.sh* first:
 
 ---
 <code>
