@@ -1,7 +1,10 @@
 # TweetSent
-Parallel Computing assigment - 2017 - Università degli studi di Firenze.
+Parallel Computing assigment - 2017 - **Università degli studi di Firenze**.
 
-Twitter sentiment analysis with Hadoop.
+###Twitter sentiment analysis with Hadoop.
+The project is implemented both in a Java and a Python version, both versions rely on a preclassified sentimentClassifier (a serialized LMClassifier from lingpipe for Java and a pickled nltk.SentimentAnalyzer for the Python version).
+The input data must be in the form of one or more text files where each line is a single tweet.
+
 
 ## Java Version
 To use the java version you need to edit the config.properties file inside  *src/main/resources*
@@ -40,7 +43,7 @@ To launch it edit *launch.sh* first:
 
 ---
 <code>
-classifierPath=#path to pickled nltk classifier
+classifierPath=#path to pickled nltk SentimentAnalyzer
 
 mapper=#mapper py path
 
