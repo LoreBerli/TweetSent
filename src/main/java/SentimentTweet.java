@@ -12,7 +12,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-
+//TODO CHAINING;Argomenti;Stemming
 public class SentimentTweet {
     public static void main(String[] args) throws Exception{
         Properties prop = new Properties();
@@ -37,7 +37,7 @@ public class SentimentTweet {
             FileOutputFormat.setOutputPath(job,new Path(args[1]));
         }
 
-        job.setMapperClass(TweetMapper.class);
+        job.setMapperClass(FilterMapper.class);
         job.setReducerClass(TweetReducer.class);
 
         job.setOutputKeyClass(Text.class);
