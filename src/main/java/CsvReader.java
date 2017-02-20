@@ -30,8 +30,4 @@ public class CsvReader {
         }
         return in.substring(pos);
     }
-    public static void main(String[] args) throws IOException{
-        String path="/home/cioni/git/sentimentw/inputFolder/negative.csv";
-        CsvReader cs = new CsvReader(path);
-    }
 }
