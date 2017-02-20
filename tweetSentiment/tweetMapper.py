@@ -5,8 +5,8 @@ import sys
 import parsePath
 
 pi=open(parsePath.parsePath(), 'rb')
-#pi=open(args[1],'rb')
 snt=pickle.load(pi)
 for l in sys.stdin:
-    wrds=l.lower().split(" ")
-    print(snt.classify(wrds))
+    wrds=l.strip("\n").lower().split(" ")
+    topic = wrds[-1]
+    print(snt.classify(wrds[0:-1])+" "+topic)

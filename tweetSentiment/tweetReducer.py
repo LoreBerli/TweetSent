@@ -1,12 +1,38 @@
 #!/usr/bin/python3
+from nltk.stem import *
 import sys
+stemmer=PorterStemmer()
+
+###################################
+NEG=0
+POS=4
+###################################
+
+def addTopic(top):
+    tot[top]=[0,0]
+
+def addPolarity(top,pol):
+    if(pol=='0'):
+        tot[top][0]+=1
+    else:
+        tot[top][1]+=1
+
+def prettyPrint():
+    for t in tot:
+        ratio=1 if (tot[t][0]==0) else tot[t][1]/float(tot[t][0])
+        print(t+":"+str(tot[t])+" = "+str(ratio))
+###################################
+
+
 
 tot={}
 for l in sys.stdin:
-    l=l.strip("\n").strip("")
-    if(tot.get(l)==None):
-        tot[l]=1
-    else:
-        tot[l]=tot[l]+1#tot[l[1]]
+    total=l.strip("\n").split(" ")
+    topic = total[-1]
+    pol = total[0]
+    #l=stemmer.stem(l.strip("\n").strip(""))
+    if(tot.get(topic)==None):
+        addTopic(topic)
+    addPolarity(topic,pol)
 
-print(tot)
+prettyPrint()

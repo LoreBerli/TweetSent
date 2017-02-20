@@ -1,6 +1,7 @@
 /**
  * Created by cioni on 08/02/17.
  */
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
@@ -11,21 +12,33 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
+import java.util.Properties;
+import java.io.FileNotFoundException;
+import java.io.FileInputStream;
 
-public class FilterMapper extends Mapper<LongWritable,Text,Text,IntWritable>{
+public class FilterMapper extends Mapper<LongWritable,Text,Text,Text>{
     private ArrayList<String> topics;
-    public FilterMapper(){
-        String[] arr = {"tom","cruise"};
+
+    public FilterMapper() throws FileNotFoundException{
+        Properties prop = new Properties();
+        PropertiesLoader prs=new PropertiesLoader();
+        try {
+            prop.load(prs.getPropAsStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        String[] arr = prop.getProperty("topics").split(" ");
         this.topics=new ArrayList<String>(Arrays.asList(arr));
     }
 
-    public boolean checkForTopics(String twt){
+    public String checkForTopics(String twt){
         ArrayList<String> twtLst= new ArrayList<String>(Arrays.asList(twt.split(" ")));
         for(String t:topics){
             if(twtLst.contains(t)){
-            return true;}
+            return t;}
         }
-        return false;
+        return " - ";
 
     }
 
@@ -36,8 +49,10 @@ public class FilterMapper extends Mapper<LongWritable,Text,Text,IntWritable>{
         Scanner scan = new Scanner(words);
         while (scan.hasNextLine()){
             String ln=scan.nextLine();
-            if(checkForTopics(ln)){
-            context.write(new Text(ln),new IntWritable(1));}
+            String top = checkForTopics(ln);
+            if(top!=" - "){
+
+            context.write(new Text(ln),new Text(top));}
         }
     }
 
