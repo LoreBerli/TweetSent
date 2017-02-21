@@ -52,7 +52,8 @@ public class TweetMapper extends Mapper<Text,Text,Text,IntWritable>{
         String topic=val.toString();
         Scanner scan = new Scanner(words);
         while (scan.hasNextLine()){
-            String tmp=sentClass.classify(scan.nextLine());            context.write(new Text(topic),new IntWritable(polToInt(tmp)));
+            String tmp=sentClass.classify(scan.nextLine());
+            context.write(new Text(topic),new IntWritable(polToInt(tmp)));
 
         }
     }

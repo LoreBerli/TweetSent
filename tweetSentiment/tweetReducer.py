@@ -1,7 +1,6 @@
 #!/usr/bin/python3
-from nltk.stem import *
 import sys
-stemmer=PorterStemmer()
+import utils
 
 ###################################
 NEG=0
@@ -23,8 +22,6 @@ def prettyPrint():
         print(t+":"+str(tot[t])+" = "+str(ratio))
 ###################################
 
-
-
 tot={}
 for l in sys.stdin:
     total=l.strip("\n").split(" ")
@@ -35,4 +32,6 @@ for l in sys.stdin:
         addTopic(topic)
     addPolarity(topic,pol)
 
+utils.outTimes()
 prettyPrint()
+

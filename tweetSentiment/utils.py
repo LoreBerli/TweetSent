@@ -1,4 +1,5 @@
 import csv
+import time
 fieldNames=['pol','id','date','query','user','text']
 
 def createFiles(filePath):
@@ -29,3 +30,7 @@ def getData(filePathP,filePathN,sz):
         tweets.append(preprocess(posReader.__next__()))
         tweets.append(preprocess(negReader.__next__()))
     return tweets
+def outTimes():
+    f = open("times.txt", 'a+')
+    f.write(time.ctime() + "\n")
+    f.close()

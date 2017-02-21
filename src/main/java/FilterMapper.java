@@ -38,7 +38,7 @@ public class FilterMapper extends Mapper<LongWritable,Text,Text,Text>{
             if(twtLst.contains(t)){
             return t;}
         }
-        return " - ";
+        return null;
 
     }
 
@@ -50,7 +50,7 @@ public class FilterMapper extends Mapper<LongWritable,Text,Text,Text>{
         while (scan.hasNextLine()){
             String ln=scan.nextLine();
             String top = checkForTopics(ln);
-            if(top!=" - "){
+            if(top!=null){
 
             context.write(new Text(ln),new Text(top));}
         }
