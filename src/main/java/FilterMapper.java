@@ -35,7 +35,7 @@ public class FilterMapper extends Mapper<LongWritable,Text,Text,Text>{
     public String checkForTopics(String twt){
         ArrayList<String> twtLst= new ArrayList<String>(Arrays.asList(twt.split(" ")));
         for(String t:topics){
-            if(twtLst.contains(t)){
+            if(twtLst.contains(t.replace(" ",""))){
             return t;}
         }
         return null;
@@ -49,7 +49,7 @@ public class FilterMapper extends Mapper<LongWritable,Text,Text,Text>{
         Scanner scan = new Scanner(words);
         while (scan.hasNextLine()){
             String ln=scan.nextLine();
-            String top = checkForTopics(ln);
+            String top = checkForTopics(ln.toLowerCase());
             if(top!=null){
 
             context.write(new Text(ln),new Text(top));}

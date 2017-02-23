@@ -12,6 +12,7 @@ import java.util.Properties;
  * Created by cioni on 22/01/17.
  */
 
+
 public class SentimentClassifier {
 
     LMClassifier clss;
@@ -37,8 +38,6 @@ public class SentimentClassifier {
         prt = new PorterStemmerTokenizerFactory(new IndoEuropeanTokenizerFactory());
         Classification cl;
         int nGram=3;
-
-
         try {
             prop.load(prs.getPropAsStream());
         } catch (IOException e) {
@@ -54,10 +53,6 @@ public class SentimentClassifier {
             train(cls,paths);
             clss=load(prop.getProperty("pathToClassifier"));
         }
-
-
-
-
     }
 
     public void testRun(String testPath)throws IOException{
@@ -84,10 +79,7 @@ public class SentimentClassifier {
 
             for (int i = 0; i < cats.length; ++i) {
                 NGramProcessLM lm=(NGramProcessLM) mClassifier.languageModel(cats[i]);
-
                 TrieCharSeqCounter con= lm.substringCounter();
-
-
                 CsvReader reader= new CsvReader(paths[i]);//input files
                 String category = cats[i];
                 Classification classification = new Classification(category);
@@ -99,9 +91,6 @@ public class SentimentClassifier {
                     }
                 con.prune(2);
             }
-
-
-
         AbstractExternalizable.compileTo(mClassifier,new File("classifierLingPipe"));
     }
 
@@ -111,10 +100,5 @@ public class SentimentClassifier {
 
         return classification.bestCategory();
         // /return java.util.Arrays.asList(categories).indexOf(classification.bestCategory());
-    }
-
-    public static void main(String[] args)throws IOException{
-        SentimentClassifier cl=new SentimentClassifier();
-        cl.testRun("/home/cioni/git/sentimentw/testSet.txt");
     }
 }

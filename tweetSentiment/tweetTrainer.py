@@ -54,33 +54,32 @@ def getTest(filePath):
             tweets.append(preprocess(r))
     return tweets
 
-def stem(wrds):
-    stemmer=PorterStemmer()
+def stem(stemmer,wrds):
+
     stemd=[stemmer.stem(w) for w in wrds]
     return stemd
 
 
 def preprocess(data):
-    wrds=stem(data['text'].lower().split(" "))
+    stemmer = PorterStemmer()
+    wrds=stem(stemmer,data['text'].lower().split(" "))
     pol=data['pol']
     return (wrds,pol)
 
 def getTrainer():
 
     if(LOAD==False):
-        dic = getData("positive.csv","negative.csv",20000)
+        dic = getData("/home/cioni/git/sentimentw/inputFolder/positive.csv","/home/cioni/git/sentimentw/inputFolder/negative.csv",5000)
         train = dic
-        tst=dic[7500:]
         snt = SentimentAnalyzer()
         wrds= snt.all_words(dic,True)
         feat=snt.unigram_word_feats(wrds,min_freq=3)
         snt.add_feat_extractor(nltk.sentiment.util.extract_unigram_feats,unigrams=feat)
         train = snt.apply_features(train)
-        test = snt.apply_features(tst)
         trainer=NaiveBayesClassifier.train
         classifier=snt.apply_features(train,True)
         snt.train(trainer,train)
-        clFile=open("classifier.pickle","wb+")
+        clFile=open("classifierSmall2.pickle","wb+")
         pickle.dump(snt,clFile)
         return snt
     else:

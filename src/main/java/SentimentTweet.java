@@ -18,7 +18,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-//TODO Stemming
 public class SentimentTweet {
     public static void main(String[] args) throws Exception{
         Properties prop = new Properties();
@@ -63,7 +62,7 @@ public class SentimentTweet {
 
         if(job.waitForCompletion(false)) {
             System.out.println(System.currentTimeMillis() - start);
-            System.exit(1);
+            //System.exit(1);
         }
     }
 }

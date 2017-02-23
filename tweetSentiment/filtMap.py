@@ -13,9 +13,9 @@ topics=parsePath.parseTopics()
 utils.outTimes()
 for l in sys.stdin:
     for t in topics:
-        fix=l.lower().strip("\n")
+        fix=l.lower().strip("\n").split(" ")
         if(t in fix):
-            wrds=fix.split(" ")
+            wrds=fix
             wrds=[stemmer.stem(i) for i in wrds]
             topic = t
             print(snt.classify(wrds[0:-1])+" "+topic)

@@ -27,7 +27,6 @@ for l in sys.stdin:
     total=l.strip("\n").split(" ")
     topic = total[-1]
     pol = total[0]
-    #l=stemmer.stem(l.strip("\n").strip(""))
     if(tot.get(topic)==None):
         addTopic(topic)
     addPolarity(topic,pol)

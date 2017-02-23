@@ -24,7 +24,6 @@ public class TweetReducer extends Reducer<Text,IntWritable,Text,Text>{
             vote(key.toString(), i.get());
         }
         context.write(key,new Text(getCount(key.toString())));
-
     }
 
     private String getCount(String topic){
