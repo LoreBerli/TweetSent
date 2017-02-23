@@ -12,10 +12,15 @@ To use the java version you need to edit the config.properties file inside  *src
 ---
 <code>
 pathToClassifier= #path to classifier
+
 inputPath= #input path
+
 outputPath= #output path
+
 topics= #space separated topics
+
 trainPositiveFile=
+
 trainNegativeFile=
 
     outputPath= #output files path
