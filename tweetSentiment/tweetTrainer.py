@@ -55,7 +55,6 @@ def getTest(filePath):
     return tweets
 
 def stem(stemmer,wrds):
-
     stemd=[stemmer.stem(w) for w in wrds]
     return stemd
 
