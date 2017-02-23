@@ -20,6 +20,7 @@ public class CsvReader {
     }
 
     private String clean(String in){
+        //Specifico per il dataset usato nel training
         int commas=0;
         int pos=0;
         while(commas<5 && pos<in.length()-1){
